@@ -1,0 +1,3 @@
+"use client";
+import { useState } from "react";
+export default function ResetPage(){const [sent,setSent]=useState(false);return <main className="authPage"><div className="authCard"><a className="brand authBrand" href="/">Trav<span>ora</span></a><h1>Reset your password</h1><p className="muted">Enter your email and we'll send a password reset link.</p><form onSubmit={e=>{e.preventDefault();setSent(true)}}><div className="field authField"><label>Email</label><input required type="email" placeholder="you@example.com"/></div><button className="authSubmit">Send reset link</button></form>{sent&&<div className="authNotice">Reset flow is ready for Supabase Auth.</div>}<a className="backHome" href="/auth">← Back to sign in</a></div></main>}
