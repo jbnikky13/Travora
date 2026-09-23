@@ -1,0 +1,106 @@
+"use client";
+
+import { useState } from "react";
+import { ArrowRight, CalendarDays, CheckCircle2, Clock3, Plane, ShieldCheck, UserRound } from "lucide-react";
+
+const popular = [
+  { route: "Lagos → London", meta: "From ₦1,842,000 · 1 stop", price: "₦1,842,000" },
+  { route: "Abuja → Dubai", meta: "From ₦1,190,000 · 1 stop", price: "₦1,190,000" },
+  { route: "Lagos → Accra", meta: "From ₦420,000 · Direct", price: "₦420,000" },
+];
+
+export default function Home() {
+  const [trip, setTrip] = useState("Round trip");
+  const [message, setMessage] = useState("");
+
+  function searchFlights() {
+    setMessage("Flight search is ready. Provider integrations will be connected in the next build.");
+  }
+
+  return (
+    <>
+      <header>
+        <div className="container nav">
+          <a className="brand" href="/">Trav<span>ora</span></a>
+          <nav className="navLinks">
+            <a href="#flights">Flights</a>
+            <a href="#why">Why Travora</a>
+            <a href="#manage">Manage booking</a>
+          </nav>
+          <div className="navActions">
+            <button className="btn btnGhost" onClick={() => setMessage("Sign-in will be connected with Supabase Auth in Build 2.")}>Sign in</button>
+            <button className="btn btnPrimary" onClick={() => setMessage("Account creation will be connected with Supabase Auth in Build 2.")}>Create account</button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section className="hero">
+          <div className="container">
+            <h1>Find the flight that fits your journey.</h1>
+            <p>Search and compare flights, book through trusted travel partners, and keep every reservation in one simple place.</p>
+
+            <div className="searchCard" id="flights">
+              <div className="tripTypes">
+                {["Round trip", "One way", "Multi-city"].map((item) => (
+                  <button key={item} className={`tripType ${trip === item ? "tripTypeActive" : ""}`} onClick={() => setTrip(item)}>{item}</button>
+                ))}
+              </div>
+              <div className="searchGrid">
+                <div className="field"><label>From</label><input placeholder="Lagos (LOS)" /></div>
+                <div className="field"><label>To</label><input placeholder="London (LHR)" /></div>
+                <div className="field"><label>Departure</label><input type="date" /></div>
+                <div className="field"><label>Travellers</label><select defaultValue="1"><option value="1">1 traveller</option><option value="2">2 travellers</option><option value="3">3 travellers</option><option value="4">4 travellers</option></select></div>
+                <button className="searchBtn" onClick={searchFlights}>Search flights</button>
+              </div>
+              {message && <p style={{color:"#123b65",margin:"14px 2px 0",fontSize:13}}>{message}</p>}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="manage">
+          <div className="container">
+            <h2>Popular flight searches</h2>
+            <p className="muted">A preview of the comparison experience. Live airline inventory comes next.</p>
+            <div className="cards">
+              {popular.map((item) => (
+                <article className="card" key={item.route}>
+                  <div className="route">{item.route}</div>
+                  <div className="routeMeta">{item.meta}</div>
+                  <div className="price">{item.price}</div>
+                  <button className="cardAction" onClick={() => setMessage(`Search selected: ${item.route}`)}>View flights <ArrowRight size={15} style={{verticalAlign:"middle"}} /></button>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" id="why" style={{background:"#fff"}}>
+          <div className="container">
+            <h2>Everything around your flight, in one place.</h2>
+            <p className="muted">Travora is being built flight-first, with booking and reservation management at its core.</p>
+            <div className="features">
+              <div className="feature"><div className="featureIcon"><Plane size={20}/></div><h3>Compare flights</h3><p>See routes, stops, timings, baggage and fares together instead of jumping between airline sites.</p></div>
+              <div className="feature"><div className="featureIcon"><ShieldCheck size={20}/></div><h3>Book with confidence</h3><p>Use airline and travel-partner booking links first, with direct booking integrations designed for later.</p></div>
+              <div className="feature"><div className="featureIcon"><CalendarDays size={20}/></div><h3>Manage every reservation</h3><p>Keep your booking reference, itinerary, passenger details and flight updates tied to your account.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <div className="card" style={{display:"flex",gap:18,alignItems:"center",flexWrap:"wrap"}}>
+              <div className="featureIcon"><UserRound size={20}/></div>
+              <div style={{flex:1,minWidth:240}}><h3 style={{margin:"0 0 6px"}}>Your account becomes your travel hub.</h3><p className="muted" style={{margin:0}}>Sign in to save passengers, view bookings and manage upcoming flights.</p></div>
+              <div style={{display:"flex",gap:8}}><Clock3 size={18}/><CheckCircle2 size={18}/></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <div className="container">© 2026 Travora · Flight search, booking and reservation management.</div>
+      </footer>
+    </>
+  );
+}
