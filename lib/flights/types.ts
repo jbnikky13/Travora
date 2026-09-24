@@ -1,0 +1,2 @@
+export type FlightSearch={origin:string;destination:string;departureDate:string;returnDate?:string;travellers?:number;tripType?:string;cabin?:string};
+export type NormalizedFlight={id:string;provider:string;airline:string;airlineCode?:string;flightNumbers:string[];departure:string;arrival:string;stops:number;currency:string;price:string;raw:any};
