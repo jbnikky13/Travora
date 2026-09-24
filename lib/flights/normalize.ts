@@ -1,0 +1,2 @@
+import type {NormalizedFlight} from "./types";
+export function normalizeAndSort(flights:NormalizedFlight[]){const seen=new Set<string>();return flights.filter(f=>{const k=f.provider+":"+f.id;if(seen.has(k))return false;seen.add(k);return true;}).sort((a,b)=>Number(a.price||0)-Number(b.price||0));}
