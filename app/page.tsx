@@ -14,7 +14,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
 
   function searchFlights() {
-    setMessage("Flight search is ready. Provider integrations will be connected in the next build.");
+    setMessage("Enter your travel details to search live flight inventory.");
   }
 
   return (
@@ -28,8 +28,8 @@ export default function Home() {
             <a href="#manage">Manage booking</a>
           </nav>
           <div className="navActions">
-            <button className="btn btnGhost" onClick={() => setMessage("Sign-in will be connected with Supabase Auth in Build 2.")}>Sign in</button>
-            <button className="btn btnPrimary" onClick={() => setMessage("Account creation will be connected with Supabase Auth in Build 2.")}>Create account</button>
+            <button className="btn btnGhost" onClick={() => window.location.href="/auth"}>Sign in</button>
+            <button className="btn btnPrimary" onClick={() => window.location.href="/auth"}>Create account</button>
           </div>
         </div>
       </header>
