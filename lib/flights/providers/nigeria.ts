@@ -1,5 +1,18 @@
-import type {FlightSearch,NormalizedFlight} from "../types";
-const NIGERIAN_CARRIERS=[{name:"Air Peace",iata:"P4"},{name:"Arik Air",iata:"W3"},{name:"Aero Contractors",iata:"AJ"},{name:"Ibom Air",iata:"QI"},{name:"Green Africa Airways",iata:"Q9"},{name:"United Nigeria Airlines",iata:"UN"},{name:"Overland Airways",iata:"OF"},{name:"Max Air",iata:"VM"}];
-export function configuredNigerianCarriers(){return NIGERIAN_CARRIERS.filter(x=>{const raw=(process.env.TRAVORA_NIGERIAN_CARRIERS||"").split(",").map(v=>v.trim().toUpperCase());return raw.length===0||raw.includes(x.iata);});}
-export function carrierDirectory(){return NIGERIAN_CARRIERS;}
-export async function searchNigeria(input:FlightSearch):Promise<NormalizedFlight[]>{const base=process.env.NIGERIAN_FLIGHT_API_URL;const key=process.env.NIGERIAN_FLIGHT_API_KEY;if(!base||!key)return [];const r=await fetch(base+"/flights/search",{method:"POST",headers:{"Authorization":`Bearer ${key}`,"Content-Type":"application/json"},body:JSON.stringify({...input,airlines:configuredNigerianCarriers().map(x=>x.iata)})});if(!r.ok)throw new Error("Nigerian flight provider search failed.");const d=await r.json();return (d.offers||d.data||[]).map((x:any)=>({...x,provider:x.provider||"nigerian-provider"}));}
+export type NigerianAirline={name:string;iata:string;bookingMode:"api"|"affiliate";bookingUrl?:string};
+const AIRLINES:NigerianAirline[]=[
+{name:"Air Peace",iata:"P4",bookingMode:"affiliate"},
+{name:"Arik Air",iata:"W3",bookingMode:"affiliate"},
+{name:"Aero Contractors",iata:"AJ",bookingMode:"affiliate"},
+{name:"Ibom Air",iata:"QI",bookingMode:"affiliate"},
+{name:"Azman Air",iata:"ZQ",bookingMode:"affiliate"},
+{name:"Dana Air",iata:"9J",bookingMode:"affiliate"},
+{name:"Green Africa Airways",iata:"Q9",bookingMode:"affiliate"},
+{name:"Max Air",iata:"VM",bookingMode:"affiliate"},
+{name:"United Nigeria Airlines",iata:"UN",bookingMode:"affiliate"},
+{name:"ValueJet",iata:"VJ",bookingMode:"affiliate"},
+{name:"XEJet",iata:"4X",bookingMode:"affiliate"}
+];
+export function carrierDirectory(){return AIRLINES;}
+export function configuredNigerianCarriers(){return AIRLINES.filter(x=>x.bookingMode==="api");}
+export async function searchNigeria(){return [];}
+export function affiliateAirlines(){return AIRLINES.filter(x=>x.bookingMode==="affiliate");}
