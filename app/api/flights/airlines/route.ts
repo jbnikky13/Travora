@@ -1,2 +1,2 @@
 import {NextResponse} from "next/server";import {carrierDirectory} from "../../../../lib/flights/providers/nigeria";
-export async function GET(){return NextResponse.json({market:"NG",airlines:carrierDirectory()});}
+export async function GET(){return NextResponse.json({market:"NG",airlines:carrierDirectory().map(a=>({...a,bookingUrl:a.bookingUrl||null}))});}
