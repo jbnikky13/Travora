@@ -39,3 +39,7 @@ npm run dev
 Travora is intentionally designed so flight providers can be swapped or combined behind a normalized search interface.
 
 Build 2 dependency fix verified: Supabase browser client package is included in the application dependencies.
+
+
+## Production security
+Build 8I database security migration has been applied and verified in the Travora Supabase project.
